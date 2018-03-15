@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.Vote.dao.SubjectDao">
+	<resultMap type="Subject" id="subjectMap" autoMapping="true">
+		<id column="id" property="id"/>
+		<collection property="options" javaType="java.util.List" ofType="Option" column="id" select="getBySubjectId"></collection>
+	</resultMap>
+	<select id="getAll" resultMap="subjectMap">
+		select * from subject 
+	</select>
+	<select id="getBySubjectId" resultType="Option" parameterType="int">
+		select * from options where subject_id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="Subject" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into subject(title,type)
+			values(#{title},#{type})
+	</insert>
+</mapper>
+
+
+
+
+
+
